@@ -13,29 +13,33 @@ import java.awt.Color;
 public class Player extends Entity {
     GamePanel gp;
     KeyHandler keyH;
+    public final int screenX;
+    public final int screenY;
 
     public Player(GamePanel gp, KeyHandler keyH){
         this.gp = gp;
         this.keyH = keyH;
+        screenX = gp.screenWidth/2;
+        screenY = gp.screenHeight/2;
         setDefaultValues();
         getPalyerImage();
     }
     public void setDefaultValues(){
-        x = 100;
-        y = 100;
+        worldX = gp.tileSize * 23 - (gp.tileSize/2);
+        worldY = gp.tileSize * 21- (gp.tileSize/2);
         speed = 4;
         direction = "up";
     }
     public void getPalyerImage(){
         try {
-            up1 = ImageIO.read(getClass().getResourceAsStream("../assetd/100/up1.png"));
-            up2 = ImageIO.read(getClass().getResourceAsStream("../assetd/100/up2.png"));
-            down1 = ImageIO.read(getClass().getResourceAsStream("../assetd/100/down1.png"));
-            down2 = ImageIO.read(getClass().getResourceAsStream("../assetd/100/down2.png"));
-            left1 = ImageIO.read(getClass().getResourceAsStream("../assetd/100/left1.png"));
-            left2 = ImageIO.read(getClass().getResourceAsStream("../assetd/100/left2.png"));
-            right1 = ImageIO.read(getClass().getResourceAsStream("../assetd/100/right1.png"));
-            right2 = ImageIO.read(getClass().getResourceAsStream("../assetd/100/right2.png"));
+            up1 = ImageIO.read(getClass().getResourceAsStream("../assetd/player/up1.png"));
+            up2 = ImageIO.read(getClass().getResourceAsStream("../assetd/player/up2.png"));
+            down1 = ImageIO.read(getClass().getResourceAsStream("../assetd/player/down1.png"));
+            down2 = ImageIO.read(getClass().getResourceAsStream("../assetd/player/down2.png"));
+            left1 = ImageIO.read(getClass().getResourceAsStream("../assetd/player/left1.png"));
+            left2 = ImageIO.read(getClass().getResourceAsStream("../assetd/player/left2.png"));
+            right1 = ImageIO.read(getClass().getResourceAsStream("../assetd/player/right1.png"));
+            right2 = ImageIO.read(getClass().getResourceAsStream("../assetd/player/right2.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -44,22 +48,22 @@ public class Player extends Entity {
         if(keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true|| keyH.rightPressed == true){
             if (this.keyH.upPressed) {
                 direction = "up";
-               this.y -= this.speed;
+               this.worldY -= this.speed;
             }
       
             if (this.keyH.downPressed) {
                 direction = "down";
-               this.y += this.speed;
+               this.worldY += this.speed;
             }
       
             if (this.keyH.leftPressed) {
                 direction = "left";
-               this.x -= this.speed;
+               this.worldX -= this.speed;
             }
       
             if (this.keyH.rightPressed) {
                 direction = "right";
-               this.x += this.speed;
+               this.worldX += this.speed;
             }
             spriteCOunter++;
             if(spriteCOunter > 12){
@@ -114,10 +118,11 @@ public class Player extends Entity {
             default:
                 break;
         }
-        int scaleFactor = 2; 
-        int newWidth = gp.tileSize * scaleFactor;
-        int newHeight = gp.tileSize * scaleFactor;
+        float scaleFactor = 1.5f; 
+        int newWidth = (int)(gp.tileSize * scaleFactor);
+        int newHeight = (int)(gp.tileSize * scaleFactor);        
 
-        g2.drawImage(image, x, y, newWidth, newHeight, null);
+
+        g2.drawImage(image, screenX, screenY, newWidth, newHeight, null);
      }
 }
