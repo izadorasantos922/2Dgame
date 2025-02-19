@@ -60,7 +60,6 @@ public class CheckCollision {
             entity.collisionOn = true;
         }
     
-        System.out.println("Checking tile: " + tileNums[0] + ", " + tileNums[1]);
     }
     
     private int getTileNum(int col, int row) {

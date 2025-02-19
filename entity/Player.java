@@ -20,11 +20,13 @@ public class Player extends Entity {
         this.keyH = keyH;
         screenX = gp.screenWidth/2;
         screenY = gp.screenHeight/2;
-        solidArea = new Rectangle(8, 16, 32, 32); 
-        solidArea.x = 8;
-        solidArea.y = 16;
-        solidArea.width = 32;
-        solidArea.height = 32;
+        solidArea = new Rectangle(25, 45, 30, 30); 
+        solidArea.x = 28;
+        solidArea.y = 45;
+        solidArea.width = 25;
+        solidArea.height = 30;
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
         solidArea = new Rectangle(solidArea.x,solidArea.y,solidArea.width,solidArea.height);
         setDefaultValues();
         getPalyerImage();
@@ -89,8 +91,6 @@ public class Player extends Entity {
                     default:
                         break;
                 }
-            }if(collisionOn == true){
-                System.out.println("true");
             }
             spriteCOunter++;
             if(spriteCOunter > 12){
