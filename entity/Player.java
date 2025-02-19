@@ -1,10 +1,9 @@
 package entity;
+import java.awt.Rectangle;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
-
 import main.GamePanel;
 import main.KeyHandler;
 
@@ -15,12 +14,18 @@ public class Player extends Entity {
     KeyHandler keyH;
     public final int screenX;
     public final int screenY;
-
+    // public boolean collisionOn = false;
     public Player(GamePanel gp, KeyHandler keyH){
         this.gp = gp;
         this.keyH = keyH;
         screenX = gp.screenWidth/2;
         screenY = gp.screenHeight/2;
+        solidArea = new Rectangle(8, 16, 32, 32); 
+        solidArea.x = 8;
+        solidArea.y = 16;
+        solidArea.width = 32;
+        solidArea.height = 32;
+        solidArea = new Rectangle(solidArea.x,solidArea.y,solidArea.width,solidArea.height);
         setDefaultValues();
         getPalyerImage();
     }
@@ -48,22 +53,44 @@ public class Player extends Entity {
         if(keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true|| keyH.rightPressed == true){
             if (this.keyH.upPressed) {
                 direction = "up";
-               this.worldY -= this.speed;
+               
             }
       
             if (this.keyH.downPressed) {
                 direction = "down";
-               this.worldY += this.speed;
+               
             }
       
             if (this.keyH.leftPressed) {
                 direction = "left";
-               this.worldX -= this.speed;
             }
       
             if (this.keyH.rightPressed) {
                 direction = "right";
-               this.worldX += this.speed;
+               
+            }
+            this.collisionOn = false;
+            gp.cChecker.checkTile(this);
+            if(this.collisionOn == false){
+                switch (direction) {
+                    case "up":
+                        this.worldY -= this.speed;
+                        break;
+                    case "left":
+                    this.worldX -= this.speed;
+                        break;
+                    case "right":
+                        this.worldX += this.speed;
+                        break;
+                    case "down":
+                        this.worldY += this.speed;
+                        break;
+                
+                    default:
+                        break;
+                }
+            }if(collisionOn == true){
+                System.out.println("true");
             }
             spriteCOunter++;
             if(spriteCOunter > 12){
