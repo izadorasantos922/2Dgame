@@ -14,6 +14,7 @@ public class Player extends Entity {
     KeyHandler keyH;
     public final int screenX;
     public final int screenY;
+    int hasKey = 0;
     // public boolean collisionOn = false;
     public Player(GamePanel gp, KeyHandler keyH){
         this.gp = gp;
@@ -30,6 +31,7 @@ public class Player extends Entity {
         solidArea = new Rectangle(solidArea.x,solidArea.y,solidArea.width,solidArea.height);
         setDefaultValues();
         getPalyerImage();
+
     }
     public void setDefaultValues(){
         worldX = gp.tileSize * 23 - (gp.tileSize/2);
@@ -73,6 +75,8 @@ public class Player extends Entity {
             }
             this.collisionOn = false;
             gp.cChecker.checkTile(this);
+            int objIndex = gp.cChecker.checkObject(this, true);
+            pickUp(objIndex);
             if(this.collisionOn == false){
                 switch (direction) {
                     case "up":
@@ -104,6 +108,32 @@ public class Player extends Entity {
 
         }
         
+     }
+     public void pickUp(int i){
+        if(i != 999){
+            String objectName = gp.obj[i].name;
+            switch (objectName) {
+                case "Key":
+                    hasKey++;
+                    gp.obj[i] = null;
+                    break;
+                case "Door":
+                    if(hasKey > 0){
+                        gp.obj[i] = null;
+                        hasKey--;
+                        
+                    }
+                    break;
+                case "Cake":
+                    speed += 2;
+                    gp.obj[i] = null;
+                    System.out.println("cake ckae");
+                    break;
+                default:
+                    break;
+            }
+        }
+
      }
      public void draw(Graphics2D g2){
         // g2.setColor(Color.white);
