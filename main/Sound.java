@@ -11,8 +11,7 @@ public class Sound {
     URL soundUrl[] = new URL[30];
     public Sound(){
         soundUrl[0] = getClass().getResource("../musicgame/musicgame.wav");
-        
-        soundUrl[1] = getClass().getResource("../musicgame/bing.wav");
+        soundUrl[1] = getClass().getResource("../musicgame/deliciaaudio.wav");
         soundUrl[2] = getClass().getResource("../musicgame/gametreasure.wav");
         soundUrl[3] = getClass().getResource("../musicgame/punch.wav");
         soundUrl[4] = getClass().getResource("../musicgame/death.wav");

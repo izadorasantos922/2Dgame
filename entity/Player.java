@@ -14,7 +14,7 @@ public class Player extends Entity {
     KeyHandler keyH;
     public final int screenX;
     public final int screenY;
-    int hasKey = 0;
+    public int hasKey = 0;
     // public boolean collisionOn = false;
     public Player(GamePanel gp, KeyHandler keyH){
         this.gp = gp;
@@ -117,6 +117,7 @@ public class Player extends Entity {
                     gp.playSE(6);
                     hasKey++;
                     gp.obj[i] = null;
+                    gp.ui.showMessage("Você conseguiu uma chave!");
                     break;
                     
                 case "Door":
@@ -124,12 +125,22 @@ public class Player extends Entity {
                         gp.playSE(5);
                         gp.obj[i] = null;
                         hasKey--;
+                        gp.ui.showMessage("Você abriu a porta!");
+                    }else{
+                        gp.ui.showMessage("Você precisa de uma chave!");
                     }
                     break;
                 case "Cake":
                     gp.playSE(1);
-                    speed += 2;
+                    speed += 1;
                     gp.obj[i] = null;
+                    gp.ui.showMessage("Mais rápido!");
+                    break;
+                case "Chest":
+                    gp.ui.gameFinished =true;
+                    gp.stopMusic();
+                    gp.playSE(2);
+                    gp.ui.showMessage("Parabens!");
                     break;
                 default:
                     break;

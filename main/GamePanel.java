@@ -21,7 +21,9 @@ public class GamePanel  extends JPanel implements Runnable{
     public final int maxWorlRow = 50;
     public final int worldWidth = tileSize * maxScreenCol;
     public final int worldHeight = tileSize * maxScreenRow;
-    Sound sound = new Sound();
+    public UI ui = new UI(this);
+    Sound music = new Sound();
+    Sound soundEffect = new Sound();
     int FPS = 60;
     TileManager tileM = new TileManager(this);
     KeyHandler keyH = new KeyHandler();
@@ -110,18 +112,19 @@ public class GamePanel  extends JPanel implements Runnable{
             }
         }
         player.draw(g2);
+        ui.draw(g2);
         g2.dispose();
     }
     public void playMusic(int i){
-        sound.setFile(i);
-        sound.play();
-        sound.loop();
+        music.setFile(i);
+        music.play();
+        music.loop();
     }
     public void stopMusic(){
-        sound.stop();
+        music.stop();
     }
     public void playSE(int i){
-        sound.setFile(i);
-        sound.play();
+        soundEffect.setFile(i);
+        soundEffect.play();
     }
 }

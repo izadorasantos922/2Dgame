@@ -10,5 +10,7 @@ public class ObjChest extends SuperObject{
         } catch (Exception e) {
             e.printStackTrace();
         }
+        collision = true;
+
     }
 }
